@@ -1,0 +1,17 @@
+@import 'reset.css';
+/*Everything container*/
+.container{
+	width: 600px;
+	margin: 40px auto;
+}
+/*Sizings*/
+h1,h2,h3{text-align: center;}
+h1{
+	font-size: 26pt;
+}
+h2{
+	font-size: 22pt;
+}
+h3{
+	font-size: 18pt;
+}
