@@ -1,8 +1,11 @@
 @import 'reset.css';
+@import 'sameshape.css';
+
 /*Background*/
 body{
 	background-image: url("../images/school.png");
 }
+
 /*Everything container*/
 .container{
 	width: 600px;
