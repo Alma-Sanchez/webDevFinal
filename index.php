@@ -42,6 +42,14 @@
 					</div>
 				</form>
 			</div> <!-- end of log in-->
+			<div>
+            <form action="stats.php" method="post" enctype="multipart/form-data">
+                Score
+                <input type="text" name="score"/><br>
+                <input type="submit"/>
+
+            </form>
+        </div>
 		</div>  <!-- end of container -->
 
 
