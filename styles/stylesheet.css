@@ -1,4 +1,8 @@
 @import 'reset.css';
+/*Background*/
+body{
+	background-image: url("../images/school.png");
+}
 /*Everything container*/
 .container{
 	width: 600px;
