@@ -121,6 +121,7 @@ var sameShape = (function () {
         noButton,
         canvas,
         gameElements = [],              // An array that holds all board children.
+        shapeGenerators = [],           // An array that holds each shape generator.
         // Size variables.
         boardHeight,
         boardWidth,
@@ -148,7 +149,6 @@ var sameShape = (function () {
         // Canvas.
         canvasLength = buttonWidth * 1.25;
     }
-    
     
     function setChildrenSizes() {
         // Timer.
@@ -340,8 +340,7 @@ var sameShape = (function () {
         canvas.classList.add("gameCanvas", "gameElement");
         board.appendChild(canvas);
     }
-    
-    
+      
     function setGameElementPositions() {
         var timerTop,
             timerLeft,
@@ -379,6 +378,7 @@ var sameShape = (function () {
         triangleGenerator.init(canvas);
         circleGenerator.init(canvas);
         rectangleGenerator.init(canvas);
+        shapeGenerators.push(triangleGenerator, circleGenerator, rectangleGenerator);
     }
     
     function onTimeExpired() {
@@ -408,9 +408,14 @@ var sameShape = (function () {
         setTimeout(clockTickDown, 1000);
     }
     
+    function drawRandomShape() {
+        var randomIndex = Math.floor(Math.random() * shapeGenerators.length),
+            randomGenerator = shapeGenerators[randomIndex];
+        randomGenerator.draw();
+    }
+    
     sameshape.startGame = function () {
         var startButton = document.getElementById("startButton");
-        
         isPlaying = true;
     };
     
@@ -440,6 +445,8 @@ var sameShape = (function () {
         setGameElementPositions();
         addGameElementsToBoard();
         initShapes();
+        
+        drawRandomShape();
     };
     
     return sameshape;
