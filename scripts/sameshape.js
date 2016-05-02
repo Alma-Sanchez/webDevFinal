@@ -266,20 +266,20 @@ var sameShape = (function () {
         score.appendChild(text);
         gameElements.push(score);
     }
-        
+    
+    function getScoreValue() {
+        var textElement = document.getElementById("scoreText"),
+            text = textElement.textContent,
+            value = parseInt(text, 10);
+        return value;
+    }
+
+    function setScoreValue(pValue) {
+        var textElement = document.getElementById("scoreText");
+        textElement.textContent = pValue.toString();
+    }
+    
     function addToScore(pValue) {
-        function getScoreValue() {
-            var textElement = document.getElementById("scoreText"),
-                text = textElement.textContent,
-                value = parseInt(text, 10);
-            return value;
-        }
-        
-        function setScoreValue(pValue) {
-            var textElement = document.getElementById("scoreText");
-            textElement.textContent = pValue.toString();
-        }
-        
         var value = getScoreValue();
         value += pValue;
         setScoreValue(value);
@@ -444,6 +444,7 @@ var sameShape = (function () {
     
     function onTimeExpired() {
         isPlaying = false;
+        setScoreValue(0);
         canvas.getContext("2d").clearRect(0, 0, canvasLength, canvasLength);
         window.alert("Your time has expired.");
         board.appendChild(startButton);
