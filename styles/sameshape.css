@@ -1,5 +1,5 @@
 #board {
-    background-color: deepskyblue;
+    background-color: #66d9ff;
     width: 300px;
     height: 300px;
     position: relative;
@@ -35,10 +35,15 @@
 }
 
 #noButton, #yesButton {
-    background-color: beige;
+    background-color: #00cccc;
     border-radius: 3px;
 }
 
 .gameElement {
     position: absolute;
+}
+
+#startButton {
+    background-color: beige;
+    border-radius: 4px;
 }
