@@ -1,4 +1,5 @@
 @import 'reset.css';
+@import 'sameshape.css';
 /*Everything container*/
 .container{
 	width: 600px;
