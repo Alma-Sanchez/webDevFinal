@@ -15,29 +15,31 @@
 		<h1>Brain Games</h1>
 		<div class="container">
 			<!-- Just adding stuff we can change this -->
-			<div class="logInBlock">
+			<div class="infoBlock">
 				<h2 class="white-text">Log In</h2>
 				<!-- Form -->
-				<form method="post">
+				<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post" enctype="multipart/form-data">
+					<!--User name  -->
 					<div class="row">
 						<div class="input-field col s12">
-							<label for="textarea1" class="white-text">User Name:</label>
+							<label for="textarea1" class="white-text">User Name/Email:</label>
 							<input id="userName" name="user_name" type="text"></input>
 						</div>
 					</div>
-
+					<!-- Password -->
 					<div class="row">
 						<div class="input-field col s12 white">
 							<label for="password" class="white-text">Password:</label>
 						 	<input id="password" type="password"></input>
 						</div>
 					</div>
-
+					<!-- Buttonssssss! -->
 					<div class="buttons">
+						<!-- Log in / check if password matches username-->
 						<input type="submit" value="Submit" name="logInSubmit" class="btn"></input>
-						<input type="button" value="Sign Up" class="btn"></input>
+						<!-- Sign up -->
+						<a class="btn" href="subPages/sign-up.html">Sign Up!</a>
 					</div>
-
 				</form>
 			</div> <!-- end of log in-->
 		</div>  <!-- end of container -->
