@@ -8,37 +8,44 @@
 		<meta name="description" content="Games for your brain.">
 		<meta name="keywords" content="games, brain games, fun, fun brain games, match the shape, match, shape, shapes, colors">
 		<!-- import stylesheet -->
-		<!-- <link rel="stylesheet" type="text/css" href="styles/stylesheet.css"> -->
+		<link rel="stylesheet" type="text/css" href="styles/stylesheet.css">
 		<link rel="stylesheet" type="text/css" href="styles/materializedStyles.css">
 	</head>
 	<body>
-
-			<h1>Brain Games</h1>
+		<h1>Brain Games</h1>
 		<div class="container">
-		<!-- Just adding stuff we can change this -->
+			<!-- Just adding stuff we can change this -->
+			<div class="logInBlock">
+				<h2 class="white-text">Log In</h2>
+				<!-- Form -->
+				<form method="post">
+					<div class="row">
+						<div class="input-field col s12">
+							<label for="textarea1" class="white-text">User Name:</label>
+							<input id="userName" name="user_name" type="text"></input>
+						</div>
+					</div>
 
-			<h2>Log In</h2>
-			<form method="post">
-			<div class="row">
-				<div class="input-field col s12">
-					<label>User Name:</label>
-					<input type="text" class="validate"></input><br>
-				</div>
-			</div>
+					<div class="row">
+						<div class="input-field col s12 white">
+							<label for="password" class="white-text">Password:</label>
+						 	<input id="password" type="password"></input>
+						</div>
+					</div>
 
-			<div class="row">
-				<div class="input-field col s12">
-					<label>Password:</label>
-				 	<input type="password"></input><br>
-				</div>
-			</div>
+					<div class="buttons">
+						<input type="submit" value="Submit" name="logInSubmit" class="btn"></input>
+						<input type="button" value="Sign Up" class="btn"></input>
+					</div>
+
+				</form>
+			</div> <!-- end of log in-->
+		</div>  <!-- end of container -->
 
 
-				<div class="row">
-					<input type="submit" value="Submit" name="logInSubmit" class="btn"></input>
-				</div>
-				<input type="button" value="Sign Up" class="btn"></input>
-			</form>
-		</div>
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="scripts/js/bin/materialize.js"></script>
+      <!-- <script type="text/javascript" src="js/myJS.js"></script> -->
 	</body>
 </html>

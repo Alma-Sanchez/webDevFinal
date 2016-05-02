@@ -23,3 +23,18 @@ h2{
 h3{
 	font-size: 18pt;
 }
+/*===================
+	log in
+===========================*/
+.logInBlock{
+	width: 500px;
+	margin: 0 auto;
+	padding: 10px;
+	background: rgba(166,79,38,.3);
+	/*border: 2px solid green;*/
+}
+.logInBlock .buttons{
+	width: 260px;
+	margin: 0 auto;
+	/*border: 2px solid green;*/
+}
