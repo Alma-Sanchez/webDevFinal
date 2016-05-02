@@ -10,6 +10,7 @@ body{
 .container{
 	width: 600px;
 	margin: 40px auto;
+	
 }
 /*Sizings*/
 h1,h2,h3{text-align: center;}
