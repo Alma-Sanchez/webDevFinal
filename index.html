@@ -6,10 +6,10 @@
 		<meta charset="utf-8">
 		<!-- Add description and keywords so the page can be found -->
 		<meta name="description" content="Games for your brain.">
-		<meta name="keywords" content="games, brain games, fun, fun brain games">
+		<meta name="keywords" content="games, brain games, fun, fun brain games, match the shape, match, shape, shapes, colors">
 		<!-- import stylesheet -->
-		<link rel="stylesheet" type="text/css" href="styles/stylesheet.css">
-        <script type="text/javascript" src="scripts/sameshape.js"></script>
+		<!-- <link rel="stylesheet" type="text/css" href="styles/stylesheet.css"> -->
+		<link rel="stylesheet" type="text/css" href="styles/materializedStyles.css">
 	</head>
 	<body>
 
@@ -19,13 +19,26 @@
 
 			<h2>Log In</h2>
 			<form method="post">
-				User Name:<input type="text"></input><br>
-				Password: <input type="password"></input><br>
-				<input type="submit" value="Submit" name="logInSubmit"></input>
-				<input type="button" value="Sign Up"></input>
-			</form>
+			<div class="row">
+				<div class="input-field col s12">
+					<label>User Name:</label>
+					<input type="text" class="validate"></input><br>
+				</div>
+			</div>
 
-            <div id="board"></div>
+			<div class="row">
+				<div class="input-field col s12">
+					<label>Password:</label>
+				 	<input type="password"></input><br>
+				</div>
+			</div>
+
+
+				<div class="row">
+					<input type="submit" value="Submit" name="logInSubmit" class="btn"></input>
+				</div>
+				<input type="button" value="Sign Up" class="btn"></input>
+			</form>
 		</div>
 	</body>
 </html>
