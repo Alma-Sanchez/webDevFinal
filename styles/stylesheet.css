@@ -10,7 +10,6 @@ body{
 .container{
 	width: 600px;
 	margin: 40px auto;
-	
 }
 /*Sizings*/
 h1,h2,h3{text-align: center;}
@@ -26,15 +25,25 @@ h3{
 /*===================
 	log in
 ===========================*/
-.logInBlock{
+.infoBlock{
 	width: 500px;
 	margin: 0 auto;
 	padding: 10px;
-	background: rgba(166,79,38,.3);
-	/*border: 2px solid green;*/
+	background-color: rgba(56,192,196,.8);
 }
-.logInBlock .buttons{
+.infoBlock .buttons{
 	width: 260px;
 	margin: 0 auto;
-	/*border: 2px solid green;*/
+}
+.required{
+	color: red;
+}
+.smallBtn{
+	width: 140px;
+	margin: 0 auto;
+}
+footer{
+	border-top: 2px solid #38C0C4;
+	padding: 20px;
+	text-align: center;
 }
