@@ -65,8 +65,8 @@
 					<div class="buttons">
 						<!-- Log in / check if password matches username-->
 						<input type="submit" value="Submit" name="logInSubmit" class="btn"></input>
+						<!-- Sign up -->
 						<a class="btn" href="subPages/sign-up.php">Sign Up!</a>
-
 					</div>						
 				</form>
 				<br><br>
@@ -74,6 +74,8 @@
 					&copy;2015 Website done by Dri, Alma and Alex
 				</footer>
 			</div> <!-- end of log in-->
+			<div>
+        </div>
 		</div>  <!-- end of container -->
 
 

@@ -1,4 +1,4 @@
-/*global console */
+/*global console, Audio */
 
 var triangleGenerator = (function () {
     "use strict";
@@ -13,6 +13,8 @@ var triangleGenerator = (function () {
     function clear() {
         context.clearRect(0, 0, canvasLength, canvasLength);
     }
+    
+    triangle.type = "triangle";
     
     triangle.draw = function () {
         clear();
@@ -57,6 +59,8 @@ var circleGenerator = (function () {
         context.clearRect(0, 0, canvas.width, canvas.width);
     }
     
+    circle.type = "circle";
+    
     circle.draw = function () {
         clear();
         context.beginPath();
@@ -88,6 +92,8 @@ var rectangleGenerator = (function () {
         context.clearRect(0, 0, canvas.width, canvas.width);
     }
     
+    rectangle.type = "rectangle";
+    
     rectangle.draw = function () {
         var length = canvas.width * 0.6,
             start = canvas.width / 2 - length / 2;
@@ -114,14 +120,21 @@ var sameShape = (function () {
     var sameshape = {},                 // The module object to be returned.
         // Game state items.
         isPlaying = false,
+        lastShape,
+        currentShape,
+        basePoints = 10,
         // Objects for referencing.
         board,
         timer,
         yesButton,
         noButton,
         canvas,
+        startButton,
         gameElements = [],              // An array that holds all board children.
         shapeGenerators = [],           // An array that holds each shape generator.
+        // SOUNDS.
+        correctPing = new Audio('../sounds/correctDing.mp3'),
+        incorrectPing = new Audio('../sounds/incorrect.wav'),
         // Size variables.
         boardHeight,
         boardWidth,
@@ -199,6 +212,9 @@ var sameShape = (function () {
         // Add them to the DOM.
         button.appendChild(buttonText);
         gameElements.push(button);
+        // We want to start the game when the start button is clicked, what a surprise.
+        button.onclick = sameshape.startGame;
+        startButton = button;
     }
     
     function createMultiplier() {
@@ -250,41 +266,54 @@ var sameShape = (function () {
         score.appendChild(text);
         gameElements.push(score);
     }
-        
+    
+    function getScoreValue() {
+        var textElement = document.getElementById("scoreText"),
+            text = textElement.textContent,
+            value = parseInt(text, 10);
+        return value;
+    }
+
+    function setScoreValue(pValue) {
+        var textElement = document.getElementById("scoreText");
+        textElement.textContent = pValue.toString();
+    }
+    
     function addToScore(pValue) {
-        function getScoreValue() {
-            var textElement = document.getElementById("scoreText"),
-                text = textElement.textContent,
-                value = parseInt(text, 10);
-            return value;
-        }
-        
-        function setScoreValue(pValue) {
-            var textElement = document.getElementById("scoreText");
-            textElement.textContent = pValue.toString();
-        }
-        
         var value = getScoreValue();
         value += pValue;
         setScoreValue(value);
     }
 
-    function addToMultiplier() {
-        function getMultiplierValue() {
-            var textElement = document.getElementById("mulText"),
-                text = textElement.textContent,
-                value = parseInt(text.substring(1), 10);
-            return value;
-        }
+    function getMultiplierValue() {
+        var textElement = document.getElementById("mulText"),
+            text = textElement.textContent,
+            value = parseInt(text.substring(1), 10);
+        return value;
+    }
 
-        function setMultiplierValue(pValue) {
-            var textElement = document.getElementById("mulText");
-            textElement.textContent = "x" + pValue;
-        }
-        
+    function setMultiplierValue(pValue) {
+        var textElement = document.getElementById("mulText");
+        textElement.textContent = "x" + pValue;
+    }
+
+    function addToMultiplier() {
         var value = getMultiplierValue();
         value = value < 10 ? value + 1 : value;
         setMultiplierValue(value);
+    }
+    
+    function drawRandomShape() {
+        var randomIndex = Math.floor(Math.random() * shapeGenerators.length),
+            randomGenerator = shapeGenerators[randomIndex];
+        
+        randomGenerator.draw();
+        return randomGenerator.type;
+    }
+    
+    function nextShape() {
+        lastShape = currentShape;
+        currentShape = drawRandomShape();
     }
     
     function createGameElements() {
@@ -321,6 +350,22 @@ var sameShape = (function () {
         yesButtonText.style.lineHeight = buttonHeight + "px";
         yesButtonText.style.fontSize = (buttonHeight - 2) + "px";
         yesButton.appendChild(yesButtonText);
+        yesButton.onclick = function () {
+            var scoreValue;
+            if (isPlaying) {
+                if (currentShape === lastShape) {
+                    correctPing.play();
+                    addToMultiplier();
+                    scoreValue = basePoints * getMultiplierValue();
+                    addToScore(scoreValue);
+                } else {
+                    incorrectPing.play();
+                    setMultiplierValue(0);
+                }
+                nextShape();
+            }
+        };
+        
         board.appendChild(yesButton);
         // No button.
         noButton = document.createElement("div");
@@ -333,6 +378,22 @@ var sameShape = (function () {
         noButtonText.style.lineHeight = buttonHeight + "px";
         noButtonText.style.fontSize = (buttonHeight - 2) + "px";
         noButton.appendChild(noButtonText);
+        noButton.onclick = function () {
+            var scoreValue;
+            if (isPlaying) {
+                if (currentShape !== lastShape) {
+                    correctPing.play();
+                    addToMultiplier();
+                    scoreValue = basePoints * getMultiplierValue();
+                    addToScore(scoreValue);
+                } else {
+                    incorrectPing.play();
+                    setMultiplierValue(0);
+                }
+                nextShape();
+            }
+        };
+        
         board.appendChild(noButton);
         // Canvas.
         canvas = document.createElement("canvas");
@@ -340,7 +401,7 @@ var sameShape = (function () {
         canvas.classList.add("gameCanvas", "gameElement");
         board.appendChild(canvas);
     }
-      
+
     function setGameElementPositions() {
         var timerTop,
             timerLeft,
@@ -382,7 +443,11 @@ var sameShape = (function () {
     }
     
     function onTimeExpired() {
+        isPlaying = false;
+        setScoreValue(0);
+        canvas.getContext("2d").clearRect(0, 0, canvasLength, canvasLength);
         window.alert("Your time has expired.");
+        board.appendChild(startButton);
     }
     
     function clockTickDown() {
@@ -406,17 +471,15 @@ var sameShape = (function () {
         resetTimerText();
         // Call clockTickDown every second.
         setTimeout(clockTickDown, 1000);
-    }
-    
-    function drawRandomShape() {
-        var randomIndex = Math.floor(Math.random() * shapeGenerators.length),
-            randomGenerator = shapeGenerators[randomIndex];
-        randomGenerator.draw();
+        isPlaying = true;
     }
     
     sameshape.startGame = function () {
-        var startButton = document.getElementById("startButton");
-        isPlaying = true;
+        board.removeChild(startButton);
+        nextShape();
+        // Allow 2 seconds before drawing the first shape and starting the timer.
+        setTimeout(nextShape, 1000);
+        setTimeout(startTimer, 1000);
     };
     
     /**
@@ -445,8 +508,6 @@ var sameShape = (function () {
         setGameElementPositions();
         addGameElementsToBoard();
         initShapes();
-        
-        drawRandomShape();
     };
     
     return sameshape;

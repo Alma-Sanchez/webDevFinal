@@ -116,17 +116,21 @@
 				<!-- Form -->
 				<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post" enctype="multipart/form-data">
 					<span class="error"><?php print_r($error);?></span>
+
 					<!-- Name -->
+					<!-- first -->
 					<div class="row">
 						<div class="input-field col s5">
 							<label for="textarea1" class="white-text">First Name:</label>
 							<input id="userName" name="first_name" type="text"></input>
 						</div>
+						<!-- Last -->
 						<div class="input-field col s6">
 							<label for="textarea1" class="white-text">Last Name:</label>
 							<input id="userName" name="last_name" type="text"></input>
 						</div>
 					</div>
+	
 					<!-- Email -->
 					<div class="row">
 						<div class="input-field col s11 white">
@@ -138,7 +142,7 @@
 					<!-- Age -->
 					<div class="row">
 						<div class="input-field col s6">
-							<label for="textarea1" class="white-text">Age: <span class="required">*</span></label>
+							<label class="white-text">Age: <span class="required">*</span></label>
 							<input type="text" name="age"></input>
 						</div>
 
@@ -149,10 +153,9 @@
 						 	<input type="text" name="gender"></input>
 						</div>
 					</div>
-
 					<!-- Password -->
 					<div class="row">
-						<div class="input-field col s11 white">
+						<div class="input-field col s11">
 							<label for="password" class="white-text">Password: <span class="required">*</span></label>
 						 	<input id="password" type="password" name="password"></input>
 						</div>
@@ -174,7 +177,6 @@
 			&copy;2015 Website done by Dri, Alma and Alex
 		</footer>
 		
-
       <!--Import jQuery before materialize.js-->
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="../scripts/js/bin/materialize.js"></script>

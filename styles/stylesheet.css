@@ -35,7 +35,7 @@ h3{
 	width: 260px;
 	margin: 0 auto;
 }
-.required{
+.required, .error{
 	color: red;
 }
 .smallBtn{
