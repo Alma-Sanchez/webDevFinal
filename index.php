@@ -14,29 +14,37 @@
 	<body>
 		<h1>Brain Games</h1>
 		<?php
-			$servername = "127.0.0.1";
+		// Connected to aws but not fully functional
+		$servername = 'dreamteamdb.crvjekystknj.us-east-1.rds.amazonaws.com';
+
+		// Create connection
+		$conn = mysqli_connect($servername, 'dream', 'password', '',3307);
+
 			$username = "root";
 			$password = "mysql";
-
-			// Create connection
-			$conn = mysqli_connect($servername, $username, $password,'myDB');
 
 			// Check connection
 			if (!$conn) {
 			    die("Connection failed: " . mysqli_connect_error());
 			}
 
-			echo "test $pwd for email $email";
+			//echo "test $pwd for email $email";
 			if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				$userName = $_POST["user_name"];
 				$password = $_POST["password"];
-				$sql = "SELECT password from table $username";
+				echo $userName;
+				$sql = "SELECT password from user where email='$userName'";
+				$temp=mysqli_query($conn, $sql);
+				var_dump($temp);
+				//$sqlpwd=$temp->fetch_assoc();
+				echo $sqlpwd["password"];
 
-				if(is_null($email) && is_null($pwd)){
-
+				if(is_null($userName) && is_null($password)){
+					echo "Please sign up";
 				}else{
 					$email=$_COOKIE["email"];
 					$pwd=$_COOKIE["password"];				
+					header("Location: subPages/gameOne.html");
 				}
 
 			}
@@ -69,11 +77,11 @@
 						<a class="btn" href="subPages/sign-up.php">Sign Up!</a>
 					</div>						
 				</form>
+			</div> <!-- end of log in-->
 				<br><br>
 				<footer>
 					&copy;2015 Website done by Dri, Alma and Alex
 				</footer>
-			</div> <!-- end of log in-->
 			<div>
         </div>
 		</div>  <!-- end of container -->

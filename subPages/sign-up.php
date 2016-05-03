@@ -16,12 +16,14 @@
 			validate form
 		 -->
 			<?php 
-			$servername = "127.0.0.1";
+		// Connected to aws but not fully functional
+		$servername = 'dreamteamdb.crvjekystknj.us-east-1.rds.amazonaws.com';
+
+		// Create connection
+		$conn = mysqli_connect($servername, 'dream', 'password', '',3307);
+
 			$username = "root";
 			$password = "mysql";
-
-			// Create connection
-			$conn = mysqli_connect($servername, $username, $password,'myDB');
 
 			// Check connection
 			if (!$conn) {
@@ -89,16 +91,18 @@
 					if(5 <= $filledOut ){
 						//echo "Added user succesfully";
 
-						$sql = "CREATE TABLE IF NOT EXISTS mytable(email VARCHAR(30), firstname VARCHAR(30), lastname VARCHAR(30))";
+						$sql = "CREATE TABLE IF NOT EXISTS user(email VARCHAR(30), firstname VARCHAR(30), lastname VARCHAR(30), password VARCHAR(30))";
 						mysqli_query($conn, $sql);
 
 						$email=$_POST["email"];
 						$first=$_POST["first_name"];
 						$last=$_POST["last_name"];
+						$pwd=$_POST["password"];
 						setcookie("email", $email,0,'/');
-						$insert = "INSERT INTO mytable(email, firstname, lastname) VALUES ('$email', '$first', '$last');"; 
+						$insert = "INSERT INTO user(email, firstname, lastname, password) VALUE ('$email', '$first', '$last','$pwd');"; 
 						setcookie("password",$password,0,'/');
 						//mysqli_query($conn, $insert);
+						mysqli_query($conn, $insert);
 						if (mysqli_query($conn, $insert)) {
 						    echo "Welcome back, {$first} {$last} ";
 							} else {
@@ -110,12 +114,12 @@
 					 }
 		?>
 		<div class="container">
-		<br><br><br><br>
-				<div class="infoBlock col s13">
-				<h2 class="white-text">Create an account today!</h2>
-				<!-- Form -->
-				<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post" enctype="multipart/form-data">
-					<span class="error"><?php print_r($error);?></span>
+			<br><br><br><br>
+			<div class="infoBlock col s13">
+			<h2 class="white-text">Create an account today!</h2>
+			<!-- Form -->
+			<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post" enctype="multipart/form-data">
+				<span class="error"><?php print_r($error);?></span>
 
 					<!-- Name -->
 					<!-- first -->
@@ -171,8 +175,9 @@
 						<input type="submit" value="Sign Up" class="btn"></input>
 					</div>
 			</form>
+			</div>
 		</div>
-	
+		<br><br>
 		<footer>
 			&copy;2015 Website done by Dri, Alma and Alex
 		</footer>
