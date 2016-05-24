@@ -9,13 +9,13 @@ var triangleGenerator = (function () {
         yStart,
         canvas,
         context;
-    
+
     function clear() {
         context.clearRect(0, 0, canvasLength, canvasLength);
     }
-    
+
     triangle.type = "triangle";
-    
+
     triangle.draw = function () {
         clear();
         context.beginPath();
@@ -34,16 +34,15 @@ var triangleGenerator = (function () {
         context.stroke();
         context.fill();
     };
-        
+
     triangle.init = function (pCanvas) {
         canvas = pCanvas;
         canvasLength = canvas.width;
         context = canvas.getContext("2d");
         yStart = canvasLength / 1.25;
         xStart = canvasLength - yStart;
-        console.log(xStart, yStart);
     };
-    
+
     return triangle;
 }());
 
@@ -54,13 +53,13 @@ var circleGenerator = (function () {
         canvas,
         context,
         color = "#ff9933";
-    
+
     function clear() {
         context.clearRect(0, 0, canvas.width, canvas.width);
     }
-    
+
     circle.type = "circle";
-    
+
     circle.draw = function () {
         clear();
         context.beginPath();
@@ -71,13 +70,13 @@ var circleGenerator = (function () {
         context.fill();
         context.stroke();
     };
-    
+
     circle.init = function (pCanvas) {
         canvas = pCanvas;
         context = canvas.getContext("2d");
         radius = canvas.width / 1.25 / 2.5;
     };
-    
+
     return circle;
 }());
 
@@ -87,13 +86,13 @@ var rectangleGenerator = (function () {
         canvas,
         context,
         color = "#9933ff";
-    
+
     function clear() {
         context.clearRect(0, 0, canvas.width, canvas.width);
     }
-    
+
     rectangle.type = "rectangle";
-    
+
     rectangle.draw = function () {
         var length = canvas.width * 0.6,
             start = canvas.width / 2 - length / 2;
@@ -104,18 +103,18 @@ var rectangleGenerator = (function () {
         context.fillRect(start - 1, start - 1, length + 2, length + 2);
         context.fillRect(start, start, length, length);
     };
-    
+
     rectangle.init = function (pCanvas) {
         canvas = pCanvas;
         context = canvas.getContext("2d");
     };
-    
+
     return rectangle;
 }());
 
 var sameShape = (function () {
     "use strict";
-    
+
     /* PRIVATE VARIABLES */
     var sameshape = {},                 // The module object to be returned.
         // Game state items.
@@ -149,9 +148,9 @@ var sameShape = (function () {
         buttonWidth,
         canvasLength,
         buttonOffset = 10;              // How many pixels between board edges and buttons
-    
+
     /* PRIVATE FUNCTIONS */
-    
+
     function findChildrenSizes() {
         // Timer.
         timerHeight = boardHeight / 10;
@@ -162,7 +161,7 @@ var sameShape = (function () {
         // Canvas.
         canvasLength = buttonWidth * 1.25;
     }
-    
+
     function setChildrenSizes() {
         // Timer.
         timer.style.width = timerWidth + "px";
@@ -177,19 +176,19 @@ var sameShape = (function () {
         canvas.width = canvasLength;
         canvas.height = canvasLength;
     }
-    
+
     function resetTimerText() {
         var text = document.getElementById("timerText");
         text.textContent = "1:00";
     }
-    
+
     function addGameElementsToBoard() {
         var i;
         for (i = 0; i < gameElements.length; i += 1) {
             board.appendChild(gameElements[i]);
         }
     }
-    
+
     function createStartButton() {
         var button = document.createElement("div"),
             buttonText = document.createElement("p"),
@@ -216,7 +215,7 @@ var sameShape = (function () {
         button.onclick = sameshape.startGame;
         startButton = button;
     }
-    
+
     function createMultiplier() {
         var mult = document.createElement("div"),
             mulText = document.createElement("p"),
@@ -224,7 +223,7 @@ var sameShape = (function () {
             height = boardHeight / 8,
             top = boardHeight / 30,
             left = boardWidth / 30;
-        
+
         // Setup the multiplier text;
         mulText.classList.add("center", "text");
         mulText.id = "mulText";
@@ -241,7 +240,7 @@ var sameShape = (function () {
         mult.appendChild(mulText);
         gameElements.push(mult);
     }
-    
+
     function createScore() {
         var score = document.createElement("div"),
             text = document.createElement("p"),
@@ -249,7 +248,7 @@ var sameShape = (function () {
             height = boardHeight / 8,
             top = boardHeight / 30,
             left = boardWidth - (boardWidth / 30 + width);
-        
+
         // Setup the score text.
         text.classList.add("center", "text");
         text.id = "scoreText";
@@ -266,7 +265,7 @@ var sameShape = (function () {
         score.appendChild(text);
         gameElements.push(score);
     }
-    
+
     function getScoreValue() {
         var textElement = document.getElementById("scoreText"),
             text = textElement.textContent,
@@ -278,7 +277,7 @@ var sameShape = (function () {
         var textElement = document.getElementById("scoreText");
         textElement.textContent = pValue.toString();
     }
-    
+
     function addToScore(pValue) {
         var value = getScoreValue();
         value += pValue;
@@ -302,27 +301,26 @@ var sameShape = (function () {
         value = value < 10 ? value + 1 : value;
         setMultiplierValue(value);
     }
-    
+
     function drawRandomShape() {
         var randomIndex = Math.floor(Math.random() * shapeGenerators.length),
             randomGenerator = shapeGenerators[randomIndex];
-        
         randomGenerator.draw();
         return randomGenerator.type;
     }
-    
+
     function nextShape() {
         lastShape = currentShape;
         currentShape = drawRandomShape();
     }
-    
+
     function createGameElements() {
         var timerText,
             multiplierText,
             scoreText,
             yesButtonText,
             noButtonText;
-        
+
         createStartButton();
         createMultiplier();
         createScore();
@@ -360,12 +358,12 @@ var sameShape = (function () {
                     addToScore(scoreValue);
                 } else {
                     incorrectPing.play();
-                    setMultiplierValue(0);
+                    setMultiplierValue(1);
                 }
                 nextShape();
             }
         };
-        
+
         board.appendChild(yesButton);
         // No button.
         noButton = document.createElement("div");
@@ -388,12 +386,12 @@ var sameShape = (function () {
                     addToScore(scoreValue);
                 } else {
                     incorrectPing.play();
-                    setMultiplierValue(0);
+                    setMultiplierValue(1);
                 }
                 nextShape();
             }
         };
-        
+
         board.appendChild(noButton);
         // Canvas.
         canvas = document.createElement("canvas");
@@ -414,47 +412,48 @@ var sameShape = (function () {
             multiplierLeft,
             scoreTop,
             scoreLeft;
-        
+
         timerTop = (boardHeight / 30) + "px";
         timerLeft = (boardWidth / 2 - timerWidth / 2) + "px";
-        
+
         buttonTop = (boardHeight - buttonHeight - buttonOffset * 3) + "px";
         buttonOffset = (boardWidth / 4 - buttonWidth / 2);
-        
+
         yesButton.style.top = buttonTop;
         yesButton.style.left = buttonOffset + "px";
         noButton.style.top = buttonTop;
         noButton.style.left = (boardWidth / 2 + buttonOffset) + "px";
-        
+
         timer.style.top = timerTop;
         timer.style.left = timerLeft;
-        
+
         canvasTop = (boardHeight / 2 - buttonOffset * 2 - canvasLength / 2) + "px";
         canvasLeft = (boardWidth / 2 - canvasLength / 2) + "px";
         canvas.style.top = canvasTop;
         canvas.style.left = canvasLeft;
     }
-    
+
     function initShapes() {
         triangleGenerator.init(canvas);
         circleGenerator.init(canvas);
         rectangleGenerator.init(canvas);
         shapeGenerators.push(triangleGenerator, circleGenerator, rectangleGenerator);
     }
-    
+
     function onTimeExpired() {
+        var score = getScoreValue();
         isPlaying = false;
         setScoreValue(0);
         canvas.getContext("2d").clearRect(0, 0, canvasLength, canvasLength);
-        window.alert("Your time has expired.");
+        window.alert("Your time has expired.\nYour score was: " + score.toString());
         board.appendChild(startButton);
     }
-    
+
     function clockTickDown() {
         var timerText = document.getElementById("timerText"),
             timerValue,
             splitTime;
-        
+
         splitTime = timerText.textContent.split(":");
         timerValue = splitTime[0] === "1" ? 60 : parseInt(splitTime[1], 10);
         timerValue -= 1;
@@ -466,14 +465,15 @@ var sameShape = (function () {
             setTimeout(clockTickDown, 1000);
         }
     }
-    
+
     function startTimer() {
         resetTimerText();
         // Call clockTickDown every second.
         setTimeout(clockTickDown, 1000);
         isPlaying = true;
     }
-    
+
+
     sameshape.startGame = function () {
         board.removeChild(startButton);
         nextShape();
@@ -481,7 +481,7 @@ var sameShape = (function () {
         setTimeout(nextShape, 1000);
         setTimeout(startTimer, 1000);
     };
-    
+
     /**
      * Initializes the board size.  Function must be called at least once before the game can be played.
      * @param {number} pWidth  The width, in pixels of the board's div.
@@ -498,7 +498,7 @@ var sameShape = (function () {
         board.style.height = boardHeight + "px";
         findChildrenSizes();
     };
-    
+
     sameshape.init = function (boardID, pBoardWidth, pBoardHeight) {
         board = document.getElementById(boardID);
         board.classList.add("center");
@@ -509,12 +509,12 @@ var sameShape = (function () {
         addGameElementsToBoard();
         initShapes();
     };
-    
+
     return sameshape;
 }());
 
 window.onload = function () {
     "use strict";
     var boardID = "board";
-    sameShape.init(boardID, 600, 600);
+    sameShape.init(boardID, 900, 900);
 };
