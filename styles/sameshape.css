@@ -1,3 +1,7 @@
+@font-face {
+    font-family: pixeldust;
+    src: url(./fonts/pixeldust.ttf)
+}
 #board {
     background-color: #abedeb;
     width: 300px;
@@ -22,10 +26,6 @@
 }
 */
 
-@font-face {
-    font-family: pixeldust;
-    src: url(./fonts/pixeldust.ttf)
-}
 
 .text {
     font-family: pixeldust;

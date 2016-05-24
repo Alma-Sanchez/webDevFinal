@@ -30,12 +30,22 @@ h3{
 	margin: 0 auto;
 	padding: 10px;
 	background-color: rgba(56,192,196,.8);
-	/*background-color: #38c0c4;*/
 }
 .infoBlock .buttons{
 	width: 260px;
 	margin: 0 auto;
 }
-.required{
+.required, .error{
 	color: red;
+}
+.smallBtn{
+	width: 140px;
+	margin: 0 auto;
+}
+footer{
+	border-top: 2px solid #38C0C4;
+	width: 600px;
+	margin: 0 auto;
+	padding: 20px;
+	text-align: center;
 }

@@ -1066,7 +1066,7 @@
 .lime-text.text-accent-4 {
   color: #aeea00 !important; }
 
-.yellow {
+/*.yellow {
   background-color: #ffeb3b !important; }
 
 .yellow-text {
@@ -1148,7 +1148,7 @@
   background-color: #ffd600 !important; }
 
 .yellow-text.text-accent-4 {
-  color: #ffd600 !important; }
+  color: #ffd600 !important; }*/
 
 .amber {
   background-color: #ffc107 !important; }
@@ -1527,9 +1527,6 @@
 
 .grey-text {
   color: #9e9e9e !important; }
-
-.grey.lighten-5 {
-  background-color: #fafafa !important; }
 
 .grey-text.text-lighten-5 {
   color: #fafafa !important; }
@@ -4980,7 +4977,7 @@ input[type=range]:focus::-ms-fill-upper {
   height: calc(100% + 60px);
   height: -moz-calc(100%);
   padding-bottom: 60px;
-  background-color: #fff;
+  background-color: #38C0C4;
   z-index: 999;
   backface-visibility: hidden;
   overflow-y: auto;
